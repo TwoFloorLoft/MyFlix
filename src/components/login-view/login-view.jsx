@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 import React from 'react';
 import PropTypes from "prop-types";
 import React, { useState } from "react";

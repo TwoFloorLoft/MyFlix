@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
+import { Link } from "react-router-dom";
+
 import './movie-view.scss';
 
 export class MovieView extends React.Component {
@@ -27,24 +29,22 @@ export class MovieView extends React.Component {
                 <Row>
                     <Col>
                         <div className="movie-view">
-                            <div className="movie-poster">
-                                <img src={movie.ImagePath} crossOrigin="true" />
+                            <div className="movie-poster" style={{ textAlign: "center", marginBottom: "30px" }}>
+                                <img src={movie.ImagePath} crossOrigin="true" width="300" />
                             </div>
                             <div className="movie-title">
                                 <span className="title">Title: </span>
                                 <span className="value">{movie.Title}</span>
-                            </div>
-                            <div className="movie-year">
-                                <span className="year">ReleaseYear: </span>
-                                <span className="value">{movie.ReleaseYear}</span>
                             </div>
                             <div className="movie-description">
                                 <span className="description">Description: </span>
                                 <span className="value">{movie.Description}</span>
                             </div>
                             <div className="movie-genre">
-                                <span className="genre">Genre: </span>
-                                <span className="value">{movie.Genre.Name}</span>
+                                <span className="label">Genre: </span>
+                                <Link to={`/genres/${movie.Genre.Name}`}>
+                                    <span className="value">{movie.Genre.Name}</span>
+                                </Link>
                             </div>
                             <div className="genre-description">
                                 <span className="genre">Description: </span>
@@ -52,22 +52,17 @@ export class MovieView extends React.Component {
                             </div>
                             <div className="movie-director">
                                 <span className="director">Director: </span>
-                                <span className="value">{movie.Director.Name}</span>
+                                <Link to={`/directors/${movie.Director.Name}`}>
+                                    <span className="value">{movie.Director.Name}</span>
+                                </Link>
                             </div>
                             <div className="director-bio">
                                 <span className="director">Bio: </span>
                                 <span className="value">{movie.Director.Bio}</span>
                             </div>
-                            <div className="director-birthyear">
-                                <span className="director">BirthYear: </span>
-                                <span className="value">{movie.Director.BirthYear}</span>
-                            </div>
-                            <div className="movie-actors">
-                                <span className="actors">Actors: </span>
-                                <span className="value">{movie.Actors}</span>
-                            </div>
                             <div className="movie-button-div">
-                                <Button className="movie-button" bg="dark" variant="dark" onClick={() => { onBackClick(null); }}>Back</Button>
+                                <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                                <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.onLoggedOut() }}>Log out</Button>
                             </div>
                         </div>
                     </Col>
@@ -81,7 +76,6 @@ export class MovieView extends React.Component {
 MovieView.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string.isRequired,
-        ReleaseYear: PropTypes.number.isRequired,
         Description: PropTypes.string.isRequired,
         Genre: PropTypes.shape({
             Name: PropTypes.string.isRequired,
@@ -89,10 +83,7 @@ MovieView.propTypes = {
         }),
         Director: PropTypes.shape({
             Name: PropTypes.string.isRequired,
-            Bio: PropTypes.string.isRequired,
-            BirthYear: PropTypes.number.isRequired,
         }),
-        Actors: PropTypes.array.isRequired,
         ImagePath: PropTypes.string.isRequired
     }).isRequired,
 };

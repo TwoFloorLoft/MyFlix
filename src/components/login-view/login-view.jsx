@@ -1,7 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import React, { useState } from "react";
-import { Navbar, Nav, Form, Button, Card, Container } from 'react-bootstrap';
+import { Form, Button, Row, Card, Container } from 'react-bootstrap';
 
 import './login-view.scss';
 
@@ -11,27 +13,25 @@ export function LoginView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
         /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-        props.onLoggedIn(username);
+        axios.post('https://joaoandrademyflix.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        })
+            .then(response => {
+                const data = response.data;
+                props.onLoggedIn(data);
+            })
+            .catch(e => {
+                console.log('no such user')
+            });
     };
 
     return (
         <Container fluid className="loginContainer" >
-
-            <Navbar bg="navColor" variant="dark" expand="lg">
-                <Container fluid>
-                    <Navbar.Brand href="#home">MyFlix</Navbar.Brand>
-                    <Nav className="me-auto">
-                        <Nav.Link href="#logout">Login</Nav.Link>
-                    </Nav>
-                </Container>
-            </Navbar>
-
             <Card className="loginCard">
                 <Card.Body>
-                    <Card.Title className="text-center">Welcome to MyFlix.</Card.Title>
+                    <Card.Title className="text-center">Welcome to MyFlix</Card.Title>
                     <Form >
                         <Form.Group controlId="formUsername">
                             <Form.Label>Username</Form.Label>
@@ -46,15 +46,14 @@ export function LoginView(props) {
                                 type="password"
                                 onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
-                        <Button className="loginButton" variant="secondary" size="lg" type="submit" onClick={handleSubmit}>
-                            Login
-                        </Button>
+                        <div className="form-button">
+                            <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Log in</Button>
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>
         </Container>
     );
-
 }
 
 LoginView.propTypes = {

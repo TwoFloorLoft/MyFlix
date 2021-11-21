@@ -88,7 +88,7 @@ export class MainView extends React.Component {
                         if (!user) return <Col>
                             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                             <Link to={`/register`}>
-                                <Button className="btn-create-account">Register</Button>
+                                <Button variant="outline-primary" type="submit">Register</Button>
                             </Link>
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
@@ -142,6 +142,15 @@ export class MainView extends React.Component {
                         </Col>
                     }
                     } />
+                    <Route path='/users/:username' render={({ history, match }) => {
+                        if (!user) return <Col>
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                        </Col>
+                        if (movies.length === 0) return <div className="main-view" />;
+                        return <Col md={8}>
+                            <ProfileView history={history} movies={movies} user={user === match.params.username} onBackClick={() => history.goBack()} />
+                        </Col>
+                    }} />
                 </Row>
             </Router>
         );

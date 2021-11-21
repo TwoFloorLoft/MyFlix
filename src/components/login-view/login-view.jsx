@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from "prop-types";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import React, { useState } from "react";
 import { Form, Button, Row, Card, Container } from 'react-bootstrap';
@@ -13,6 +14,7 @@ export function LoginView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(username, password);
         /* Send a request to the server for authentication */
         axios.post('https://joaoandrademyflix.herokuapp.com/login', {
             Username: username,
@@ -28,31 +30,20 @@ export function LoginView(props) {
     };
 
     return (
-        <Container fluid className="loginContainer" >
-            <Card className="loginCard">
-                <Card.Body>
-                    <Card.Title className="text-center">Welcome to MyFlix</Card.Title>
-                    <Form >
-                        <Form.Group controlId="formUsername">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control
-                                type="text"
-                                onChange={e => setUsername(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group controlId="formPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                className="mb-3"
-                                type="password"
-                                onChange={e => setPassword(e.target.value)} />
-                        </Form.Group>
-                        <div className="form-button">
-                            <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Log in</Button>
-                        </div>
-                    </Form>
-                </Card.Body>
-            </Card>
-        </Container>
+        <Form className="form">
+            <h2>Log In</h2>
+            <Form.Group controlId="formUsername">
+                <Form.Label>Username: </Form.Label>
+                <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username"></Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password: </Form.Label>
+                <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"></Form.Control>
+            </Form.Group>
+            <div className="form-button">
+                <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Log in</Button>
+            </div>
+        </Form >
     );
 }
 

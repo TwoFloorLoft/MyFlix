@@ -1,70 +1,98 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
 import './director-view.scss';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-
 
 export class DirectorView extends React.Component {
+
+    constructor(props) {
+        super();
+        this.state = {
+            movie: this.state,
+            Director: [],
+        };
+    }
+
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
+            });
+            this.getDirector(accessToken);
+        }
+    }
+
+
+
+    getDirector(token) {
+        const movie = this.state;
+        const Director = movie.Director;
+        axios.get(`https://joaoandrademyflix.herokuapp.com/directors/${Director._id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => {
+                this.setState({
+                    Diretor: response.data.Director,
+                });
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+    }
+
     render() {
-        const { onBackClick, director } = this.props;
-
-        if (!director.Death) return (
-
-            <div className="director-view">
-                <h1>{director.Name}</h1>
-                <div className="director-bio">{director.Bio}</div>
-                <div className="director-life">
-                    <div className="director-birth">
-                        <div className="director-birth-label">Born:</div>
-                        <div className="director-birth-date">{director.Birth}</div>
-                    </div>
-                </div>
-                <div className="director-movies">
-                    <div>
-                        <h4>Other movies:</h4>
-                        <div className="director-movies-list">{director.Movies.map(movie => <p key={movie}>{movie}</p>)}</div>
-                    </div>
-                </div>
-                <Button onClick={() => { onBackClick(); }} variant="outline-primary" className="button-back">Back</Button>
-            </div>
-        );
+        const { Director } = this.state;
+        const { directors } = this.props;
 
         return (
-
-            <div className="director-view">
-                <h1>{director.Name}</h1>
-                <div className="director-bio">{director.Bio}</div>
-                <div className="director-life">
-                    <div className="director-birth">
-                        <div className="director-birth-label">Born:</div>
-                        <div className="director-birth-date">{director.Birth}</div>
-                    </div>
-                    <div className="director-death">
-                        <div className="director-death-label">Died:</div>
-                        <div className="director-death-date">{director.Death}</div>
-                    </div>
-                </div>
-                <div className="director-movies">
-                    <div>
-                        <h4>Other movies:</h4>
-                        <div className="director-movies-list">{director.Movies.map(movie => <p>{movie}</p>)}</div>
-                    </div>
-                </div>
-                <Button onClick={() => { onBackClick(); }} variant="outline-primary" className="button-back">Back</Button>
-            </div>
+            <Container className="mt-5">
+                <Card>
+                    <Row>
+                        <Col xs={12}>
+                            <h4>Director</h4>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Card.Body>
+                                <Row className="director-body ">
+                                    {Director.length > 0 &&
+                                        directors.map((director) => {
+                                            if (Director._id === Directors.find((dir) => dir === movie.Director)) {
+                                                return (
+                                                    <Card>
+                                                        <Row
+                                                            className="director-item card-content"
+                                                            style={{ width: "16rem" }}
+                                                            key={Director.Name}>
+                                                        </Row>
+                                                        <Row
+                                                            className="director-item card-content"
+                                                            style={{ width: "16rem" }}
+                                                            key={Director.Bio}>
+                                                        </Row>
+                                                    </Card>
+                                                );
+                                            }
+                                        }
+                                        )
+                                    }
+                                </Row>
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                </Card>
+            </Container>
         );
     }
 }
 
-DirectorView.propTypes = {
-    director: PropTypes.shape({
+DirectorView.prototype = {
+    Director: PropTypes.shape({
         Name: PropTypes.string.isRequired,
-        Bio: PropTypes.string,
-        Birth: PropTypes.string,
-        Death: PropTypes.string,
-        Movies: PropTypes.array
+        Bio: PropTypes.string
     }).isRequired
 };

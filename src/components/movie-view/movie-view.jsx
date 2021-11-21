@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import './movie-view.scss';
 
@@ -30,7 +30,7 @@ export class MovieView extends React.Component {
                     <Col>
                         <div className="movie-view">
                             <div className="movie-poster" style={{ textAlign: "center", marginBottom: "30px" }}>
-                                <img src={movie.ImagePath} crossOrigin="true" width="300" />
+                                <img src={movie.ImagePath} crossOrigin="true" width="300" height="400" />
                             </div>
                             <div className="movie-title">
                                 <span className="title">Title: </span>

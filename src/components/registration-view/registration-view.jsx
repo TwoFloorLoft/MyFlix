@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Button, Row, Col } from 'react-bootstrap';
@@ -13,7 +14,7 @@ export function RegistrationView(props) {
     const [email, setEmail] = useState('');
     const [birthday, setBirthday] = useState('');
 
-    const handleRegister = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password, email, birthday);
         axios.post('https://joaoandrademyflix.herokuapp.com/users', {
@@ -30,35 +31,6 @@ export function RegistrationView(props) {
             .catch(e => {
                 console.log('error registering the user')
             });
-
-        const validate = (e) => {
-            const usernameError = {}
-            const passwordError = {}
-            const emailError = {}
-
-            let isValid = true;
-
-            //Conditions
-            if (username.trim().length < 3) {
-                usernameError.usernameShort = "Min. 3 characters"
-                isValid = false;
-            }
-
-            if (password.trim().length < 4) {
-                passwordError.passwordMissing = "Min 5 characters"
-                isValid = false;
-            }
-
-            if (!email.includes(".") || !email.includes("@")) {
-                emailError.emailNotEmail = "Enter a valid email"
-                isValid = false;
-            }
-
-            setUsernameError(usernameError);
-            setPasswordError(passwordError);
-            setEmailError(emailError);
-            return isValid;
-        }
 
         return (
             <Row>
@@ -81,12 +53,12 @@ export function RegistrationView(props) {
                             <Form.Label>Birthday:</Form.Label>
                             <Form.Control type="date" value={birthday} onChange={e => setBirthday(e.target.value)} onInput={validate} placeholder="Birthday"></Form.Control>
                         </Form.Group>
-                        <Button variant="outline-primary" type="submit" onClick={handleRegister}>Create Account</Button>
+                        <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Create Account</Button>
                     </Form>
                 </Col>
                 <Col>
                     <Link to={`/`}>
-                        <Button >Back to Login</Button>
+                        <Button >Back to login</Button>
                     </Link>
                 </Col>
             </Row>

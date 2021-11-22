@@ -61,7 +61,7 @@ export class ProfileView extends React.Component {
 
         axios
             .put(
-                `https://movie-api-by-tammy.herokuapp.com/users/${Username}`,
+                `https://joaoandrademyflix.herokuapp.com/users/${Username}`,
                 {
                     Username: this.state.Username,
                     Password: this.state.Password,
@@ -98,13 +98,11 @@ export class ProfileView extends React.Component {
         const Username = localStorage.getItem("user");
         const token = localStorage.getItem("token");
 
-        axios
-            .delete(
-                `https://movie-api-by-tammy.herokuapp.com/users/${Username}/movies/${movie._id}`,
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            )
+        axios.delete(`https://joaoandrademyflix.herokuapp.com/users/${Username}/movies/${movie._id}`,
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        )
             .then((response) => {
                 console.log(response);
                 alert("Movie was removed!");
@@ -120,13 +118,12 @@ export class ProfileView extends React.Component {
         const Username = localStorage.getItem("user");
         const token = localStorage.getItem("token");
 
-        axios
-            .delete(`https://movie-api-by-tammy.herokuapp.com/user/${Username}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
+        axios.delete(`https://joaoandrademyflix.herokuapp.com/user/${Username}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
             .then((response) => {
                 console.log(response);
-                alert("Profile has been deleted.");
+                alert("Profile has been deleted!");
                 localStorage.removeItem("user");
                 localStorage.removeItem("token");
                 window.open(`/`, "_self");

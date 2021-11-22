@@ -92,27 +92,6 @@ export class ProfileView extends React.Component {
             });
     };
 
-    // Delete a movie from FavoriteMovies list
-    onRemoveFavorite = (e, movie) => {
-        e.preventDefault();
-        const Username = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
-
-        axios.delete(`https://joaoandrademyflix.herokuapp.com/users/${Username}/movies/${movie._id}`,
-            {
-                headers: { Authorization: `Bearer ${token}` },
-            }
-        )
-            .then((response) => {
-                console.log(response);
-                alert("Movie was removed!");
-                this.componentDidMount();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-
     // Deregister
     onDeleteUser() {
         const Username = localStorage.getItem("user");

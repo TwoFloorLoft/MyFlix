@@ -30,18 +30,22 @@ export function LoginView(props) {
     };
 
     return (
-        <Form className="form">
+        <Form className="form" align="center">
             <h2>Log In</h2>
+            <br />
             <Form.Group controlId="formUsername">
-                <Form.Label>Username: </Form.Label>
                 <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username"></Form.Control>
             </Form.Group>
+            <br />
             <Form.Group controlId="formPassword">
-                <Form.Label>Password: </Form.Label>
                 <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"></Form.Control>
             </Form.Group>
+            <br></br>
             <div className="form-button">
                 <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Log in</Button>
+                <br />
+                <br />
+                <br />
             </div>
         </Form >
     );

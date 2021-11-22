@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import axios from "axios";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -8,26 +9,47 @@ import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
-    keypressCallback(event) {
-        console.log(event.key);
+    addToFavs() {
+        const Username = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+        const { movie } = this.props;
+
+        axios.post(`https://joaoandrademyflix.herokuapp.com/users/${Username}/movies/${movie._id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => {
+                console.log(response);
+                console.log(movie._id);
+                alert("The movie is now on your list.");
+                this.componentDidMount();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     componentDidMount() {
-        document.addEventListener('keypress', this.keypressCallback);
+        document.addEventListener("keypress", this.keypressCallback);
     }
 
-    componentWillUnmount() {
-        document.removeEventListener('keypress', this.keypressCallback);
+    onLoggedOut() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        this.setState({
+            user: null,
+        });
+        window.open("/", "_self");
     }
 
     render() {
-        const { movie, onBackClick } = this.props;
+        const { movie, onBackClick, user } = this.props;
 
         return (
 
-            <Container fluid className="moviesContainer">
+            <Container fluid className="moviesContainer" align="center">
                 <Row>
                     <Col>
+                        <br />
                         <div className="movie-view">
                             <div className="movie-poster" style={{ textAlign: "center", marginBottom: "30px" }}>
                                 <img src={movie.ImagePath} crossOrigin="true" width="300" height="400" />
@@ -46,28 +68,21 @@ export class MovieView extends React.Component {
                                     <span className="value">{movie.Genre.Name}</span>
                                 </Link>
                             </div>
-                            <div className="genre-description">
-                                <span className="genre">Description: </span>
-                                <span className="value">{movie.Genre.Description}</span>
-                            </div>
                             <div className="movie-director">
                                 <span className="director">Director: </span>
                                 <Link to={`/directors/${movie.Director.Name}`}>
                                     <span className="value">{movie.Director.Name}</span>
                                 </Link>
                             </div>
-                            <div className="director-bio">
-                                <span className="director">Bio: </span>
-                                <span className="value">{movie.Director.Bio}</span>
-                            </div>
+                            <br />
                             <div className="movie-button-div">
                                 <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
-                                <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.onLoggedOut() }}>Log out</Button>
+                                <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.addToFavs(); }}>Add to Favorite</Button>
                             </div>
+                            <br />
                         </div>
                     </Col>
                 </Row>
-
             </Container>
         );
     }

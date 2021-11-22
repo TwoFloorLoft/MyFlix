@@ -1,98 +1,75 @@
-import React from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './director-view.scss';
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
+
+import "./director-view.scss";
 
 export class DirectorView extends React.Component {
-
-    constructor(props) {
-        super();
-        this.state = {
-            movie: this.state,
-            Director: [],
-        };
-    }
-
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
-            this.getDirector(accessToken);
-        }
-    }
-
-
-
-    getDirector(token) {
-        const movie = this.state;
-        const Director = movie.Director;
-        axios.get(`https://joaoandrademyflix.herokuapp.com/directors/${Director._id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => {
-                this.setState({
-                    Diretor: response.data.Director,
-                });
-            })
-            .catch(function (error) {
-                console.log(error)
-            });
-    }
-
     render() {
-        const { Director } = this.state;
-        const { directors } = this.props;
+        const { Director, onBackClick, movies } = this.props;
 
         return (
-            <Container className="mt-5">
-                <Card>
-                    <Row>
-                        <Col xs={12}>
-                            <h4>Director</h4>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Card.Body>
-                                <Row className="director-body ">
-                                    {Director.length > 0 &&
-                                        directors.map((director) => {
-                                            if (Director._id === Directors.find((dir) => dir === movie.Director)) {
-                                                return (
-                                                    <Card>
-                                                        <Row
-                                                            className="director-item card-content"
-                                                            style={{ width: "16rem" }}
-                                                            key={Director.Name}>
-                                                        </Row>
-                                                        <Row
-                                                            className="director-item card-content"
-                                                            style={{ width: "16rem" }}
-                                                            key={Director.Bio}>
-                                                        </Row>
-                                                    </Card>
-                                                );
-                                            }
-                                        }
-                                        )
+            <Container>
+                <br />
+                <Card align="center">
+                    <h4>Director</h4>
+                    <Card.Body>
+                        <div>
+                            <span className="label">Name: </span>
+                            <span className="value">{Director.Name}</span>
+                        </div>
+                        <div>
+                            <span className="label">Bio: </span>
+                            <span className="value">{Director.Bio}</span>
+                        </div>
+                        <div>
+                            <span className="label">Born: </span>
+                            <span className="value">{Director.Birth}</span>
+                        </div>
+                        <div>
+                            <span className="label">Death: </span>
+                            <span className="value">{Director.Death}</span>
+                        </div>
+                        <Row className="director-movies text-center">
+                            <Col>
+                                <p>
+                                    <strong>{Director.Name}'s Movies</strong>
+                                </p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="img-container text-center">
+                                {movies.map((m) => {
+                                    if (m.Director && m.Director.Name === Director.Name) {
+                                        return (
+                                            <Card.Img
+                                                className="movie-img"
+                                                variant="top"
+                                                key={m._id}
+                                                src={m.ImagePath}
+                                            />
+                                        );
                                     }
-                                </Row>
-                            </Card.Body>
-                        </Col>
-                    </Row>
+                                })}
+                            </Col>
+                        </Row>
+                        <br />
+                        <div className="backButton">
+                            <Button size="md" variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                        </div>
+                    </Card.Body>
                 </Card>
             </Container>
         );
     }
 }
 
-DirectorView.prototype = {
+DirectorView.proptypes = {
     Director: PropTypes.shape({
         Name: PropTypes.string.isRequired,
-        Bio: PropTypes.string
-    }).isRequired
+        Bio: PropTypes.string,
+        Birth: PropTypes.number,
+        Death: PropTypes.number,
+    }).isRequired,
 };

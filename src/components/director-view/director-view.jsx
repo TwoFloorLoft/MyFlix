@@ -7,7 +7,7 @@ import "./director-view.scss";
 
 export class DirectorView extends React.Component {
     render() {
-        const { Director, onBackClick, movies } = this.props;
+        const { Director, onBackClick, movies, movie } = this.props;
 
         return (
             <Container>

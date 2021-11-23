@@ -236,6 +236,7 @@ export class ProfileView extends React.Component {
                         </Card>
                     </Col>
                 </Row>
+                <br />
                 <Card>
                     <Row style={{ marginTop: "20px" }}>
                         <Col>

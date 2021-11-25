@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
-
 import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { setUser, updateUser } from '../../actions/actions';
+import { connect } from 'react-redux';
 
 import "./profile-view.scss";
 
@@ -35,9 +35,9 @@ export class ProfileView extends React.Component {
     }
 
     getUser = (token) => {
-        const Username = localStorage.getItem("user");
+        const username = localStorage.getItem("user");
         axios
-            .get(`https://movie-api-by-tammy.herokuapp.com/users/${Username}`, {
+            .get(`https://joaoandrademyflix.herokuapp.com/users/${username}`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
@@ -53,25 +53,24 @@ export class ProfileView extends React.Component {
                 console.log(error);
             });
     };
+
     // Allow user to edit or update profile
+
     editUser = (e) => {
         e.preventDefault();
-        const Username = localStorage.getItem("user");
+        const username = localStorage.getItem("user");
         const token = localStorage.getItem("token");
 
-        axios
-            .put(
-                `https://joaoandrademyflix.herokuapp.com/users/${Username}`,
-                {
-                    Username: this.state.Username,
-                    Password: this.state.Password,
-                    Email: this.state.Email,
-                    Birthday: this.state.Birthday,
-                },
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            )
+        axios.put(`https://joaoandrademyflix.herokuapp.com/users/${username}`,
+            {
+                Username: this.state.Username,
+                Password: this.state.Password,
+                Email: this.state.Email,
+                Birthday: this.state.Birthday,
+            },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            })
             .then((response) => {
                 this.setState({
                     Username: response.data.Username,
@@ -85,19 +84,38 @@ export class ProfileView extends React.Component {
                 console.log(data);
                 console.log(this.state.Username);
                 alert("Profile is updated!");
-                window.open(`/users/${Username}`, "_self");
+                window.open(`/users/${username}`, "_self");
             })
             .catch(function (error) {
                 console.log(error);
             });
     };
 
+    //Remove a fav movie
+
+    onRemoveFavorite() {
+        const username = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        axios.delete(`https://joaoandrademyflix.herokuapp.com/users/${username}/movies/${movie._id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then((response) => {
+                console.log(response);
+                this.componentDidMount();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     // Deregister
+
     onDeleteUser() {
-        const Username = localStorage.getItem("user");
+        const username = localStorage.getItem("user");
         const token = localStorage.getItem("token");
 
-        axios.delete(`https://joaoandrademyflix.herokuapp.com/user/${Username}`, {
+        axios.delete(`https://joaoandrademyflix.herokuapp.com/user/${username}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {
@@ -113,35 +131,23 @@ export class ProfileView extends React.Component {
     }
 
     setUsername(value) {
-        this.setState({
-            Username: value,
-        });
-        this.Username = value;
+        this.state.Username = value;
     }
 
     setPassword(value) {
-        this.setState({
-            Password: value,
-        });
-        this.Password = value;
+        this.state.Password = value;
     }
 
     setEmail(value) {
-        this.setState({
-            Email: value,
-        });
-        this.Email = value;
+        this.state.Email = value;
     }
 
     setBirthday(value) {
-        this.setState({
-            Birthday: value,
-        });
-        this.Birthday = value;
+        this.state.Birthday = value;
     }
 
     render() {
-        const { movies, onBackClick } = this.props;
+        const { movies, onBackClick, user } = this.props;
         const { FavoriteMovies, Username, Email, Birthday } = this.state;
 
         return (
@@ -288,11 +294,11 @@ export class ProfileView extends React.Component {
     }
 }
 
-ProfileView.propTypes = {
-    profile: PropTypes.shape({
-        Username: PropTypes.string.isRequired,
-        Password: PropTypes.string.isRequired,
-        Email: PropTypes.string.isRequired,
-        Birthday: PropTypes.string,
-    }),
-};
+let mapStateToProps = state => {
+    return {
+        user: state.user,
+        movies: state.movies
+    }
+}
+
+export default connect(mapStateToProps, { setUser, updateUser })(ProfileView);

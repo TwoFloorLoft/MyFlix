@@ -12,6 +12,7 @@ export class GenreView extends React.Component {
             <Container>
                 <br />
                 <Card align="center">
+                    <br />
                     <h4>{Genre.Name}</h4>
                     <Card.Body>
                         <div>

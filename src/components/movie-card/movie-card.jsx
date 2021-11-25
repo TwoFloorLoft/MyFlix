@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Container, Col, Row } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Button, Card, CardGroup, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 

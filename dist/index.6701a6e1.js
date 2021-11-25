@@ -25575,7 +25575,6 @@ function visibilityFilter(state = '', action) {
 function movies(state = [], action) {
     switch(action.type){
         case _actions.SET_MOVIES:
-            console.log('SET_MOVIES reducer reached');
             return action.value;
         default:
             return state;
@@ -25584,8 +25583,7 @@ function movies(state = [], action) {
 function user(state = [], action) {
     switch(action.type){
         case _actions.SET_USER:
-            console.log('SET_USER reducer reached');
-            return action.value;
+            return action.user;
         case _actions.UPDATE_USER:
             return action.value;
         default:
@@ -25612,6 +25610,8 @@ parcelHelpers.export(exports, "UPDATE_USER", ()=>UPDATE_USER
 );
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
+parcelHelpers.export(exports, "setFilter", ()=>setFilter
+);
 parcelHelpers.export(exports, "setUser", ()=>setUser
 );
 parcelHelpers.export(exports, "updateUser", ()=>updateUser
@@ -25621,9 +25621,14 @@ const SET_FILTER = 'SET_FILTER';
 const SET_USER = 'SET_USER';
 const UPDATE_USER = "UPDATE_USER";
 function setMovies(value) {
-    console.log('SET_MOVIES action triggered');
     return {
         type: SET_MOVIES,
+        value
+    };
+}
+function setFilter(value) {
+    return {
+        type: SET_FILTER,
         value
     };
 }

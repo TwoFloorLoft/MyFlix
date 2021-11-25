@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
@@ -31,20 +32,6 @@ class MainView extends React.Component {
             user: null,
         };
     }
-
-    /*getUsers(token) {
-        axios.get(`https://joaoandrademyflix.herokuapp.com/users/`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => {
-                this.setState({
-                    users: response.data,
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }*/
 
     getMovies(token) {
         axios.get('https://joaoandrademyflix.herokuapp.com/movies', {

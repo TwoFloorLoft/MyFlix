@@ -4,7 +4,9 @@
   "description": "",
   "default": "src/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/netlify-lambda serve src",
+    "build": "react-scripts build"
   },
   "repository": "git+https://github.com/TwoFloorLoft/MyFlix.git",
   "author": "TwoFloorLoft <joaoluisespiguinha@gmail.com>",

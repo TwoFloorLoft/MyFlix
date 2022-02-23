@@ -43394,6 +43394,26 @@ function NavBarView() {
                                         children: "User Profile"
                                     })
                                 }),
+                                /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
+                                    to: `/movies`,
+                                    __source: {
+                                        fileName: "src/components/navbar-view/navbar-view.jsx",
+                                        lineNumber: 26
+                                    },
+                                    __self: this,
+                                    children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.NavItem, {
+                                        style: {
+                                            color: "white"
+                                        },
+                                        href: "",
+                                        __source: {
+                                            fileName: "src/components/navbar-view/navbar-view.jsx",
+                                            lineNumber: 27
+                                        },
+                                        __self: this,
+                                        children: "Movies"
+                                    })
+                                }),
                                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.NavItem, {
                                     style: {
                                         color: "grey",
@@ -43401,13 +43421,13 @@ function NavBarView() {
                                     },
                                     __source: {
                                         fileName: "src/components/navbar-view/navbar-view.jsx",
-                                        lineNumber: 26
+                                        lineNumber: 31
                                     },
                                     __self: this,
                                     children: /*#__PURE__*/ _jsxRuntime.jsxs("p", {
                                         __source: {
                                             fileName: "src/components/navbar-view/navbar-view.jsx",
-                                            lineNumber: 27
+                                            lineNumber: 32
                                         },
                                         __self: this,
                                         children: [
@@ -43416,7 +43436,7 @@ function NavBarView() {
                                                 to: `/users/${user}`,
                                                 __source: {
                                                     fileName: "src/components/navbar-view/navbar-view.jsx",
-                                                    lineNumber: 27
+                                                    lineNumber: 32
                                                 },
                                                 __self: this,
                                                 children: user
@@ -43431,7 +43451,7 @@ function NavBarView() {
                             className: "d-flex",
                             __source: {
                                 fileName: "src/components/navbar-view/navbar-view.jsx",
-                                lineNumber: 30
+                                lineNumber: 35
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -43442,7 +43462,7 @@ function NavBarView() {
                                 },
                                 __source: {
                                     fileName: "src/components/navbar-view/navbar-view.jsx",
-                                    lineNumber: 31
+                                    lineNumber: 36
                                 },
                                 __self: this,
                                 children: "Logout"

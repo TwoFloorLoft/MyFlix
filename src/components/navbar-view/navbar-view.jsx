@@ -23,6 +23,11 @@ export function NavBarView() {
                                 User Profile
                             </NavItem>
                         </Link>
+                        <Link to={`/movies`}>
+                            <NavItem style={{ color: "white" }} href="">
+                                Movies
+                            </NavItem>
+                        </Link>
                         <NavItem style={{ color: "grey", paddingLeft: "25px" }}>
                             <p>( Logged in as: <Link to={`/users/${user}`} >{user}</Link> )</p>
                         </NavItem>

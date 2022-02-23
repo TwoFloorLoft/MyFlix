@@ -13,20 +13,24 @@ export class DirectorView extends React.Component {
             <Container>
                 <br />
                 <Card align="center">
+                    <br />
                     <h4>Director</h4>
                     <Card.Body>
                         <div>
                             <span className="label">Name: </span>
                             <span className="value">{Director.Name}</span>
                         </div>
+                        <br />
                         <div>
                             <span className="label">Bio: </span>
                             <span className="value">{Director.Bio}</span>
                         </div>
+                        <br />
                         <div>
                             <span className="label">Born: </span>
                             <span className="value">{Director.Birth}</span>
                         </div>
+                        <br />
                         <div>
                             <span className="label">Death: </span>
                             <span className="value">{Director.Death}</span>

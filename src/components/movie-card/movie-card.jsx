@@ -25,10 +25,10 @@ export class MovieCard extends React.Component {
             <Container>
                 <br />
                 <Row>
-                    <Card align="center">
+                    <Card className="card" align="center">
                         <Card.Img variant="top" src={movie.ImagePath} crossOrigin="true" width="300" height="350" />
                         <Card.Body>
-                            <Card.Title>{movie.Title}</Card.Title>
+                            <Card.Title className="label">{movie.Title}</Card.Title>
                             <Card.Text>{movie.Description}</Card.Text>
                             <br />
                             <Link to={`/movies/${movie._id}`}>

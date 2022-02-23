@@ -155,6 +155,7 @@ export class ProfileView extends React.Component {
                 <Row>
                     <Col>
                         <Card className="user-profile">
+                            <br />
                             <Card.Title>User Profile</Card.Title>
                             <Card.Text>
                                 <div className="profile-container">
@@ -168,6 +169,8 @@ export class ProfileView extends React.Component {
                                     <br />
                                     <span className="label">Birthday: </span>
                                     <span className="value">{Birthday}</span>
+                                    <br />
+                                    <br />
                                 </div>
                             </Card.Text>
                         </Card>
@@ -179,6 +182,7 @@ export class ProfileView extends React.Component {
                         <Card className="update-profile">
                             <Card.Body>
                                 <Card.Title>Update Profile</Card.Title>
+                                <br />
                                 <Form
                                     className="update-form"
                                     onSubmit={(e) =>
@@ -201,6 +205,7 @@ export class ProfileView extends React.Component {
                                             required
                                         />
                                     </Form.Group>
+                                    <br />
 
                                     <Form.Group>
                                         <Form.Label>Password</Form.Label>
@@ -212,6 +217,7 @@ export class ProfileView extends React.Component {
                                             required
                                         />
                                     </Form.Group>
+                                    <br />
 
                                     <Form.Group>
                                         <Form.Label>Email</Form.Label>
@@ -223,6 +229,7 @@ export class ProfileView extends React.Component {
                                             required
                                         />
                                     </Form.Group>
+                                    <br />
 
                                     <Form.Group>
                                         <Form.Label>Birthday</Form.Label>
@@ -234,8 +241,8 @@ export class ProfileView extends React.Component {
                                     </Form.Group>
                                     <br />
                                     <div className="bt">
-                                        <Button variant="warning" type="submit" onClick={this.editUser}>Update User</Button>
-                                        <Button className="delete-button" variant="danger" onClick={() => this.onDeleteUser()} > Delete User </Button>
+                                        <Button variant="outline-warning" type="submit" onClick={this.editUser}>Update User</Button>
+                                        <Button className="delete-button" variant="outline-danger" onClick={() => this.onDeleteUser()} > Delete User </Button>
                                     </div>
                                 </Form>
                             </Card.Body>
@@ -243,7 +250,7 @@ export class ProfileView extends React.Component {
                     </Col>
                 </Row>
                 <br />
-                <Card>
+                {/* <Card>
                     <Row style={{ marginTop: "20px" }}>
                         <Col>
                             <h4>{Username} Favorite Movies</h4>
@@ -283,7 +290,7 @@ export class ProfileView extends React.Component {
                             </Card.Body>
                         </Col>
                     </Row>
-                </Card>
+                </Card> */}
                 <br />
                 <div className="backButton">
                     <Button size="md" variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>

@@ -64,11 +64,11 @@ export class MovieView extends React.Component {
                                 <img src={movie.ImagePath} crossOrigin="true" width="300" height="400" />
                             </div>
                             <div className="movie-title">
-                                <span className="title">Title: </span>
+                                <span className="label">Title: </span>
                                 <span className="value">{movie.Title}</span>
                             </div>
                             <div className="movie-description">
-                                <span className="description">Description: </span>
+                                <span className="label">Description: </span>
                                 <span className="value">{movie.Description}</span>
                             </div>
                             <div className="movie-genre">
@@ -78,7 +78,7 @@ export class MovieView extends React.Component {
                                 </Link>
                             </div>
                             <div className="movie-director">
-                                <span className="director">Director: </span>
+                                <span className="label">Director: </span>
                                 <Link to={`/directors/${movie.Director.Name}`}>
                                     <span className="value">{movie.Director.Name}</span>
                                 </Link>
@@ -86,7 +86,7 @@ export class MovieView extends React.Component {
                             <br />
                             <div className="movie-button-div">
                                 <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
-                                <Button variant="outline-primary" className="btn-outline-primary" value={movie._id} onClick={(e) => this.addFavoriteMovie(e, movie)}>Add to Favorites</Button>
+                                {/* <Button variant="outline-primary" className="btn-outline-primary" value={movie._id} onClick={(e) => this.addFavoriteMovie(e, movie)}>Add to Favorites</Button> */}
                             </div>
                             <br />
                         </div>

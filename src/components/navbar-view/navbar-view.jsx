@@ -23,15 +23,13 @@ export function NavBarView() {
                                 User Profile
                             </NavItem>
                         </Link>
-                        <Link to={`/movies`}>
-                            <NavItem style={{ color: "white" }} href="">
-                                Movies
-                            </NavItem>
-                        </Link>
                         <NavItem style={{ color: "grey", paddingLeft: "25px" }}>
                             <p>( Logged in as: <Link to={`/users/${user}`} >{user}</Link> )</p>
                         </NavItem>
                     </Nav>
+                    <Nav.Link className="d-flex">
+                        <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.onLoggedIn() }}>Movies</Button>
+                    </Nav.Link>
                     <Nav.Link className="d-flex">
                         <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.onLoggedOut() }}>Logout</Button>
                     </Nav.Link>
